@@ -1,6 +1,6 @@
 package binaryTree
 
-type Comparison = int
+type Comparison int
 
 const (
 	BIGGER  Comparison = 1
@@ -42,6 +42,24 @@ func FindInsertNodePtr[T any](root *TreeNode[T], value T, compare CompareFn[T]) 
 			FindInsertNodePtr(root.right, value, compare)
 		}
 	}
+}
+
+func (tree *BinaryTree[T]) Find(value T) bool {
+	var comparison Comparison
+	node := tree.root
+
+	for node != nil {
+		comparison = tree.compare(value, node.value)
+		if comparison == SMALLER {
+			node = node.left
+		} else if comparison == BIGGER {
+			node = node.right
+		} else {
+			return true
+		}
+	}
+
+	return false
 }
 
 func (tree *BinaryTree[T]) Push(value T) {
