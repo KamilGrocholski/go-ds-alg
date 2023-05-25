@@ -6,7 +6,7 @@ import (
 )
 
 func TestStack(t *testing.T) {
-	t.Run("should Push", func(t *testing.T) {
+	t.Run("it should Push", func(t *testing.T) {
 		stack := CreateStack[int]()
 		const pushCount = 3
 		expect := make([]int, 0, pushCount)
@@ -23,7 +23,7 @@ func TestStack(t *testing.T) {
 		}
 	})
 
-	t.Run("should Pop", func(t *testing.T) {
+	t.Run("it should Pop", func(t *testing.T) {
 		stack := CreateStack[int]()
 		const popCount = 3
 		expect := make([]int, 0, popCount)

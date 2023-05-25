@@ -33,7 +33,7 @@ func TestBinaryTre(t *testing.T) {
 		}
 	})
 
-	t.Run("it should Find", func(t *testing.T) {
+	t.Run("it should Some", func(t *testing.T) {
 		tree := CreateBinaryTree[int](Compare)
 
 		tree.Push(1)
@@ -42,7 +42,7 @@ func TestBinaryTre(t *testing.T) {
 		tree.Push(1)
 
 		expect := []bool{true, true, true}
-		got := []bool{tree.Find(1), tree.Find(2), tree.Find(3)}
+		got := []bool{tree.Some(1), tree.Some(2), tree.Some(3)}
 
 		if !reflect.DeepEqual(expect, got) {
 			t.Errorf("expect: %v, got: %v", expect, got)

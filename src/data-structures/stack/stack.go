@@ -13,8 +13,8 @@ type Stack[T any] struct {
 	size int
 }
 
-func CreateStack[T any]() Stack[T] {
-	return Stack[T]{head: nil, tail: nil, size: 0}
+func CreateStack[T any]() *Stack[T] {
+	return &Stack[T]{head: nil, tail: nil, size: 0}
 }
 
 func (stack *Stack[T]) Push(value T) {

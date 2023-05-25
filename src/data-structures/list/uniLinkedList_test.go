@@ -6,7 +6,7 @@ import (
 )
 
 func TestUniLinkedList(t *testing.T) {
-	t.Run("should Push", func(t *testing.T) {
+	t.Run("it should Push", func(t *testing.T) {
 		ull := CreateUniLinkedList[int]()
 		const pushCount = 3
 		expect := make([]int, 0, pushCount)
@@ -22,7 +22,7 @@ func TestUniLinkedList(t *testing.T) {
 		}
 	})
 
-	t.Run("should Shift", func(t *testing.T) {
+	t.Run("it should Shift", func(t *testing.T) {
 		ull := CreateUniLinkedList[int]()
 		const shiftCount = 3
 		expect := make([]int, 0, shiftCount)

@@ -1,5 +1,9 @@
 package binaryTree
 
+import (
+	"errors"
+)
+
 type Comparison int
 
 const (
@@ -11,9 +15,10 @@ const (
 type CompareFn[T any] func(a T, b T) Comparison
 
 type TreeNode[T any] struct {
-	left  *TreeNode[T]
-	right *TreeNode[T]
-	value T
+	left   *TreeNode[T]
+	right  *TreeNode[T]
+	parent *TreeNode[T]
+	value  T
 }
 
 type BinaryTree[T any] struct {
@@ -22,29 +27,29 @@ type BinaryTree[T any] struct {
 	compare CompareFn[T]
 }
 
-func CreateBinaryTree[T any](compare CompareFn[T]) BinaryTree[T] {
-	return BinaryTree[T]{root: nil, size: 0, compare: compare}
+func CreateBinaryTree[T any](compare CompareFn[T]) *BinaryTree[T] {
+	return &BinaryTree[T]{root: nil, size: 0, compare: compare}
 }
 
-func FindInsertNodePtr[T any](root *TreeNode[T], value T, compare CompareFn[T]) {
+func PushHelper[T any](root *TreeNode[T], value T, compare CompareFn[T]) {
 	comparison := compare(value, root.value)
 
 	if comparison == SMALLER {
 		if root.left == nil {
-			root.left = &TreeNode[T]{left: nil, right: nil, value: value}
+			root.left = &TreeNode[T]{left: nil, right: nil, value: value, parent: root.parent}
 		} else {
-			FindInsertNodePtr(root.left, value, compare)
+			PushHelper(root.left, value, compare)
 		}
 	} else {
 		if root.right == nil {
-			root.right = &TreeNode[T]{left: nil, right: nil, value: value}
+			root.right = &TreeNode[T]{left: nil, right: nil, value: value, parent: root.parent}
 		} else {
-			FindInsertNodePtr(root.right, value, compare)
+			PushHelper(root.right, value, compare)
 		}
 	}
 }
 
-func (tree *BinaryTree[T]) Find(value T) bool {
+func (tree *BinaryTree[T]) Some(value T) bool {
 	var comparison Comparison
 	node := tree.root
 
@@ -63,15 +68,34 @@ func (tree *BinaryTree[T]) Find(value T) bool {
 }
 
 func (tree *BinaryTree[T]) Push(value T) {
-	newNodePtr := &TreeNode[T]{left: nil, right: nil, value: value}
+	newNodePtr := &TreeNode[T]{left: nil, right: nil, value: value, parent: nil}
 
 	if tree.root == nil {
 		tree.root = newNodePtr
 	} else {
-		FindInsertNodePtr(tree.root, value, tree.compare)
+		PushHelper(tree.root, value, tree.compare)
 	}
 
 	tree.size++
+}
+
+func (tree *BinaryTree[T]) RemoveNode(node *TreeNode[T]) (T, error) {
+	if node == nil {
+		var r T
+		return r, errors.New("the node does not exist")
+	}
+
+	value := node.value
+
+	if node.parent.left == node {
+		node.parent.left = nil
+	} else {
+		node.parent.right = nil
+	}
+
+	tree.size--
+
+	return value, nil
 }
 
 func (tree *BinaryTree[T]) ToArray() []T {

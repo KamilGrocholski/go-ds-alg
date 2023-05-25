@@ -6,7 +6,7 @@ import (
 )
 
 func TestQueue(t *testing.T) {
-	t.Run("should Enqueue", func(t *testing.T) {
+	t.Run("it should Enqueue", func(t *testing.T) {
 		queue := CreateQueue[int]()
 		const enqueuesCount int = 3
 		expect := make([]int, 0)
@@ -28,7 +28,7 @@ func TestQueue(t *testing.T) {
 		}
 	})
 
-	t.Run("should Dequeue", func(t *testing.T) {
+	t.Run("it should Dequeue", func(t *testing.T) {
 		queue := CreateQueue[int]()
 		const enqueuesCount int = 3
 		expect := make([]int, 0)
@@ -58,7 +58,7 @@ func TestQueue(t *testing.T) {
 		}
 	})
 
-	t.Run("should Clear", func(t *testing.T) {
+	t.Run("it should Clear", func(t *testing.T) {
 		queue := CreateQueue[int]()
 
 		queue.Enqueue(1)

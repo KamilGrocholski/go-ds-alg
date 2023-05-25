@@ -15,12 +15,8 @@ type UniLinkedList[T any] struct {
 	size int
 }
 
-func CreateUniNode[T any](value T) UniNode[T] {
-	return UniNode[T]{value: value, next: nil}
-}
-
-func CreateUniLinkedList[T any]() UniLinkedList[T] {
-	return UniLinkedList[T]{head: nil, tail: nil, size: 0}
+func CreateUniLinkedList[T any]() *UniLinkedList[T] {
+	return &UniLinkedList[T]{head: nil, tail: nil, size: 0}
 }
 
 func (list *UniLinkedList[T]) Push(value T) {

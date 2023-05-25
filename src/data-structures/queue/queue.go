@@ -13,8 +13,8 @@ type Queue[T any] struct {
 	size int
 }
 
-func CreateQueue[T any]() Queue[T] {
-	return Queue[T]{head: nil, tail: nil, size: 0}
+func CreateQueue[T any]() *Queue[T] {
+	return &Queue[T]{head: nil, tail: nil, size: 0}
 }
 
 func (queue *Queue[T]) Enqueue(value T) {
