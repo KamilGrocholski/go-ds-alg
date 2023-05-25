@@ -1,8 +1,6 @@
 package arrayMethods
 
-type Slice[T any] []T
-
-func (slice *Slice[T]) Pop() T {
+func Pop[T any](slice *[]T) T {
 	length := len(*slice)
 
 	if length == 0 {
@@ -16,7 +14,7 @@ func (slice *Slice[T]) Pop() T {
 	return removed
 }
 
-func (slice *Slice[T]) Shift() T {
+func Shift[T any](slice *[]T) T {
 	length := len(*slice)
 
 	if length == 0 {
@@ -28,4 +26,20 @@ func (slice *Slice[T]) Shift() T {
 	*slice = (*slice)[1:]
 
 	return removed
+}
+
+func Reverse[T any](slice []T) {
+	midIndex := (len(slice) / 2)
+	var temp T
+	low := 0
+	high := len(slice) - 1
+
+	for i := 0; i < midIndex; i++ {
+		temp = (slice)[low]
+		(slice)[low] = (slice)[high]
+		(slice)[high] = temp
+
+		low++
+		high--
+	}
 }

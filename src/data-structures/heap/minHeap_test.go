@@ -15,7 +15,7 @@ func IsSmaller(a, b int) bool {
 
 func TestMinHeap(t *testing.T) {
 	t.Run("it should Push", func(t *testing.T) {
-		heap := CreateMinHeap[int](IsSmaller)
+		heap := CreateMinHeap(IsSmaller)
 		const pushCount = 3
 		expect := make([]int, 0)
 
@@ -36,7 +36,7 @@ func TestMinHeap(t *testing.T) {
 	})
 
 	t.Run("it should Pop", func(t *testing.T) {
-		heap := CreateMinHeap[int](IsSmaller)
+		heap := CreateMinHeap(IsSmaller)
 		expect := []int{1, 2, 3}
 
 		for _, value := range expect {
@@ -47,7 +47,7 @@ func TestMinHeap(t *testing.T) {
 
 		for index := range expect {
 			removed := heap.Pop()
-			got[2-index] = removed
+			got[len(expect)-1-index] = removed
 		}
 
 		if !reflect.DeepEqual(expect, got) {
